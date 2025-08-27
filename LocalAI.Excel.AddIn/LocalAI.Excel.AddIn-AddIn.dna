@@ -1,0 +1,28 @@
+<DnaLibrary Name="Local AI Excel Add-in" RuntimeVersion="v4.0" Language="CS">
+  <ExternalLibrary Path="LocalAI.Excel.AddIn.dll" ExplicitExports="false" LoadFromBytes="true" Pack="true" />
+
+  <Reference Name="System.Net.Http" />
+  <Reference Name="Newtonsoft.Json" />
+
+  <CustomUI>
+    <ribbon>
+      <tabs>
+        <tab id="LocalAITab" label="Local AI">
+          <group id="LocalAIGroup" label="AI Functions">
+            <button id="ShowTaskPane" label="AI Configuration" 
+                    size="large" onAction="ShowConfigurationPane"
+                    imageMso="DatabaseSelectTable" />
+            <button id="TestConnection" label="Test Connection" 
+                    size="normal" onAction="TestAIConnection"
+                    imageMso="DatabaseConnectToNewDataSource" />
+          </group>
+          <group id="HelpGroup" label="Help">
+            <button id="ShowHelp" label="Function Guide" 
+                    size="normal" onAction="ShowHelpDialog"
+                    imageMso="Help" />
+          </group>
+        </tab>
+      </tabs>
+    </ribbon>
+  </CustomUI>
+</DnaLibrary>
