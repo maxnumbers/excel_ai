@@ -1,0 +1,36 @@
+name: Build Local AI Excel Add-in (Native)
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.x'
+
+      - name: Restore
+        run: dotnet restore LocalAI.Excel.AddIn/LocalAI.Excel.AddIn.csproj
+
+      - name: Build Release (pack XLLs)
+        run: >
+          dotnet build LocalAI.Excel.AddIn/LocalAI.Excel.AddIn.csproj
+          -c Release
+          -p:ExcelDnaCreate32BitAddIn=true
+          -p:ExcelDnaCreate64BitAddIn=true
+          -p:ExcelDnaPack=true
+
+      - name: Upload packed XLLs
+        uses: actions/upload-artifact@v4
+        with:
+          name: xll-artifacts
+          path: |
+            LocalAI.Excel.AddIn/bin/Release/*-packed.xll
+            LocalAI.Excel.AddIn/bin/Release/*.xll.config
