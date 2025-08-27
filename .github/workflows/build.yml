@@ -27,10 +27,10 @@ jobs:
 
       - name: List generated files (debug)
         run: |
-          echo "Contents of bin/Release:"
-          dir LocalAI.Excel.AddIn\bin\Release /s
-          echo "Looking for XLL files:"
-          dir LocalAI.Excel.AddIn\bin\Release\*.xll /s 2>nul || echo "No XLL files found"
+          Write-Host "Contents of bin/Release:"
+          Get-ChildItem -Path "LocalAI.Excel.AddIn/bin/Release" -Recurse -ErrorAction SilentlyContinue
+          Write-Host "Looking for XLL files:"
+          Get-ChildItem -Path "LocalAI.Excel.AddIn/bin/Release/*.xll" -ErrorAction SilentlyContinue
 
       - name: Upload XLL artifacts
         uses: actions/upload-artifact@v4
