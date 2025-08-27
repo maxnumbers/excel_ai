@@ -20,7 +20,8 @@ namespace LocalAI.Excel.AddIn
             Description = "Generate AI response using Ollama or LM Studio",
             Category = "Local AI",
             IsThreadSafe = true,
-            IsVolatile = false
+            IsVolatile = false,
+            HelpTopic = "AI.CHAT: Generate AI response. Usage: =AI.CHAT(prompt, [model], [temperature])"
         )]
         public static object AI_CHAT(
             [ExcelArgument(Name = "prompt", Description = "The prompt to send to AI")] string prompt,
@@ -51,7 +52,8 @@ namespace LocalAI.Excel.AddIn
             Description = "Summarize text using AI",
             Category = "Local AI",
             IsThreadSafe = true,
-            IsVolatile = false
+            IsVolatile = false,
+            HelpTopic = "AI.SUMMARIZE: Summarize text. Usage: =AI.SUMMARIZE(text, [model], [style])"
         )]
         public static object AI_SUMMARIZE(
             [ExcelArgument(Name = "text", Description = "Text to summarize")] string text,
@@ -89,7 +91,8 @@ namespace LocalAI.Excel.AddIn
             Description = "Translate text using AI", 
             Category = "Local AI",
             IsThreadSafe = true,
-            IsVolatile = false
+            IsVolatile = false,
+            HelpTopic = "AI.TRANSLATE: Translate text. Usage: =AI.TRANSLATE(text, language, [model], [formal])"
         )]
         public static object AI_TRANSLATE(
             [ExcelArgument(Name = "text", Description = "Text to translate")] string text,
@@ -126,7 +129,8 @@ namespace LocalAI.Excel.AddIn
             Description = "Analyze data and answer questions using AI",
             Category = "Local AI", 
             IsThreadSafe = true,
-            IsVolatile = false
+            IsVolatile = false,
+            HelpTopic = "AI.ANALYZE: Analyze Excel data. Usage: =AI.ANALYZE(data_range, question, [model])"
         )]
         public static object AI_ANALYZE(
             [ExcelArgument(Name = "data_range", Description = "Range of data to analyze")] object[,] dataRange,
@@ -160,7 +164,8 @@ namespace LocalAI.Excel.AddIn
             Description = "Analyze sentiment of text using AI",
             Category = "Local AI",
             IsThreadSafe = true,
-            IsVolatile = false
+            IsVolatile = false,
+            HelpTopic = "AI.SENTIMENT: Analyze text sentiment. Usage: =AI.SENTIMENT(text, [model], [detailed])"
         )]
         public static object AI_SENTIMENT(
             [ExcelArgument(Name = "text", Description = "Text to analyze")] string text,
@@ -195,7 +200,8 @@ namespace LocalAI.Excel.AddIn
             Description = "Generate code or Excel formulas using AI",
             Category = "Local AI",
             IsThreadSafe = true,
-            IsVolatile = false
+            IsVolatile = false,
+            HelpTopic = "AI.CODE: Generate code/formulas. Usage: =AI.CODE(description, [language], [model])"
         )]
         public static object AI_CODE(
             [ExcelArgument(Name = "description", Description = "Description of what code/formula you need")] string description,

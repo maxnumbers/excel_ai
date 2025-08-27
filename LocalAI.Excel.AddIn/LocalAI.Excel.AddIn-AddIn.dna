@@ -1,5 +1,5 @@
 <DnaLibrary Name="Local AI Excel Add-in" RuntimeVersion="v4.0" Language="CS">
-  <ExternalLibrary Path="LocalAI.Excel.AddIn.dll" ExplicitExports="false" LoadFromBytes="true" Pack="true" />
+  <ExternalLibrary Path="LocalAI.Excel.AddIn.dll" ExplicitExports="true" LoadFromBytes="true" Pack="true" />
 
   <Reference Name="System.Net.Http" />
   <Reference Name="Newtonsoft.Json" />
