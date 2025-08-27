@@ -26,17 +26,16 @@ jobs:
         run: |
           Write-Host "Contents of bin/Release:"
           Get-ChildItem -Path "LocalAI.Excel.AddIn/bin/Release" -Recurse -ErrorAction SilentlyContinue
-          Write-Host "Looking for XLL files:"
-          Get-ChildItem -Path "LocalAI.Excel.AddIn/bin/Release/*.xll" -ErrorAction SilentlyContinue
+          Write-Host "Looking for XLL files in net472 subdirectory:"
+          Get-ChildItem -Path "LocalAI.Excel.AddIn/bin/Release/net472/*.xll" -ErrorAction SilentlyContinue
 
       - name: Upload XLL artifacts
         uses: actions/upload-artifact@v4
         with:
           name: xll-artifacts
           path: |
-            LocalAI.Excel.AddIn/bin/Release/*-packed.xll
-            LocalAI.Excel.AddIn/bin/Release/*.xll
-            LocalAI.Excel.AddIn/bin/Release/*.dll
-            LocalAI.Excel.AddIn/bin/Release/*.dna
-            LocalAI.Excel.AddIn/bin/Release/*.config
+            LocalAI.Excel.AddIn/bin/Release/net472/*.xll
+            LocalAI.Excel.AddIn/bin/Release/net472/*.dll
+            LocalAI.Excel.AddIn/bin/Release/net472/*.dna
+            LocalAI.Excel.AddIn/bin/Release/net472/*.config
           if-no-files-found: warn
