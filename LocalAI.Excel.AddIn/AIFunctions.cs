@@ -33,11 +33,11 @@ namespace LocalAI.Excel.AddIn
             var modelName = ExcelHelper.GetOptionalString(model, config.DefaultModel);
             var temp = ExcelHelper.GetOptionalDouble(temperature, 0.7);
 
-            return ExcelAsyncUtil.Run("AI.CHAT", new object[] { prompt, modelName, temp }, async () =>
+            return ExcelAsyncUtil.Run("AI.CHAT", new object[] { prompt, modelName, temp }, () =>
             {
                 try
                 {
-                    return await GenerateAIResponse(prompt, modelName, temp);
+                    return GenerateAIResponse(prompt, modelName, temp).GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {
@@ -71,11 +71,11 @@ namespace LocalAI.Excel.AddIn
                 _ => $"Please provide a brief summary of the following text:\n\n{text}"
             };
 
-            return ExcelAsyncUtil.Run("AI.SUMMARIZE", new object[] { text, modelName, summaryStyle }, async () =>
+            return ExcelAsyncUtil.Run("AI.SUMMARIZE", new object[] { text, modelName, summaryStyle }, () =>
             {
                 try
                 {
-                    return await GenerateAIResponse(prompt, modelName, 0.5);
+                    return GenerateAIResponse(prompt, modelName, 0.5).GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {
@@ -108,11 +108,11 @@ namespace LocalAI.Excel.AddIn
 
             var prompt = $"Translate the following text to {targetLanguage} using a {tone} tone. Only return the translation:\n\n{text}";
 
-            return ExcelAsyncUtil.Run("AI.TRANSLATE", new object[] { text, targetLanguage, modelName }, async () =>
+            return ExcelAsyncUtil.Run("AI.TRANSLATE", new object[] { text, targetLanguage, modelName }, () =>
             {
                 try
                 {
-                    return await GenerateAIResponse(prompt, modelName, 0.3);
+                    return GenerateAIResponse(prompt, modelName, 0.3).GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {
@@ -142,11 +142,11 @@ namespace LocalAI.Excel.AddIn
             var dataText = ExcelHelper.ConvertRangeToText(dataRange);
             var prompt = $"Data to analyze:\n{dataText}\n\nQuestion: {question}\n\nPlease analyze this data and answer the question with specific references to the data.";
 
-            return ExcelAsyncUtil.Run("AI.ANALYZE", new object[] { dataRange, question, modelName }, async () =>
+            return ExcelAsyncUtil.Run("AI.ANALYZE", new object[] { dataRange, question, modelName }, () =>
             {
                 try
                 {
-                    return await GenerateAIResponse(prompt, modelName, 0.4);
+                    return GenerateAIResponse(prompt, modelName, 0.4).GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {
@@ -177,11 +177,11 @@ namespace LocalAI.Excel.AddIn
                 ? $"Analyze the sentiment of the following text and provide a detailed explanation with confidence scores:\n\n{text}"
                 : $"Analyze the sentiment of the following text. Return only: Positive, Negative, or Neutral:\n\n{text}";
 
-            return ExcelAsyncUtil.Run("AI.SENTIMENT", new object[] { text, modelName }, async () =>
+            return ExcelAsyncUtil.Run("AI.SENTIMENT", new object[] { text, modelName }, () =>
             {
                 try
                 {
-                    return await GenerateAIResponse(prompt, modelName, 0.2);
+                    return GenerateAIResponse(prompt, modelName, 0.2).GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {
@@ -209,11 +209,11 @@ namespace LocalAI.Excel.AddIn
             var modelName = ExcelHelper.GetOptionalString(model, config.DefaultModel);
             var prompt = $"Generate {lang} code for: {description}\n\nOnly return the code, no explanations unless specifically requested.";
 
-            return ExcelAsyncUtil.Run("AI.CODE", new object[] { description, lang, modelName }, async () =>
+            return ExcelAsyncUtil.Run("AI.CODE", new object[] { description, lang, modelName }, () =>
             {
                 try
                 {
-                    return await GenerateAIResponse(prompt, modelName, 0.3);
+                    return GenerateAIResponse(prompt, modelName, 0.3).GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {
@@ -239,7 +239,7 @@ namespace LocalAI.Excel.AddIn
                     return await CallOllamaAPI(prompt, model, temperature);
                 }
             }
-            catch (HttpRequestException ex)
+            catch (HttpRequestException)
             {
                 return $"Connection Error: Make sure {config.Service} is running on {config.ApiUrl}";
             }
