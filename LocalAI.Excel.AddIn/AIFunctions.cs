@@ -13,6 +13,39 @@ namespace LocalAI.Excel.AddIn
         private static readonly HttpClient httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(2) };
         private static AIConfiguration config = new AIConfiguration();
 
+        #region Test Functions
+
+        [ExcelFunction(
+            Name = "AI.TEST",
+            Description = "Simple test function to verify add-in is working",
+            Category = "Local AI",
+            HelpTopic = "AI.TEST: Test function. Usage: =AI.TEST()"
+        )]
+        public static object AI_TEST()
+        {
+            return "Add-in is working!";
+        }
+
+        [ExcelFunction(
+            Name = "AI.CONFIG_TEST",
+            Description = "Test configuration access",
+            Category = "Local AI",
+            HelpTopic = "AI.CONFIG_TEST: Test config. Usage: =AI.CONFIG_TEST()"
+        )]
+        public static object AI_CONFIG_TEST()
+        {
+            try
+            {
+                return $"Service: {config.Service}, URL: {config.ApiUrl}, Model: {config.DefaultModel}";
+            }
+            catch (Exception ex)
+            {
+                return $"Config Error: {ex.Message}";
+            }
+        }
+
+        #endregion
+
         #region AI Chat Functions
 
         [ExcelFunction(
@@ -38,7 +71,17 @@ namespace LocalAI.Excel.AddIn
             {
                 try
                 {
-                    return GenerateAIResponse(prompt, modelName, temp).GetAwaiter().GetResult();
+                    var task = GenerateAIResponse(prompt, modelName, temp);
+                    if (task.Wait(TimeSpan.FromMilliseconds(100))) // Quick check
+                    {
+                        return task.Result;
+                    }
+                    return task.Result; // Will block if still running
+                }
+                catch (AggregateException aex)
+                {
+                    var innerEx = aex.InnerException ?? aex;
+                    return $"Error: {innerEx.Message}";
                 }
                 catch (Exception ex)
                 {
@@ -77,7 +120,17 @@ namespace LocalAI.Excel.AddIn
             {
                 try
                 {
-                    return GenerateAIResponse(prompt, modelName, 0.5).GetAwaiter().GetResult();
+                    var task = GenerateAIResponse(prompt, modelName, 0.5);
+                    if (task.Wait(TimeSpan.FromMilliseconds(100)))
+                    {
+                        return task.Result;
+                    }
+                    return task.Result;
+                }
+                catch (AggregateException aex)
+                {
+                    var innerEx = aex.InnerException ?? aex;
+                    return $"Error: {innerEx.Message}";
                 }
                 catch (Exception ex)
                 {
@@ -115,7 +168,17 @@ namespace LocalAI.Excel.AddIn
             {
                 try
                 {
-                    return GenerateAIResponse(prompt, modelName, 0.3).GetAwaiter().GetResult();
+                    var task = GenerateAIResponse(prompt, modelName, 0.3);
+                    if (task.Wait(TimeSpan.FromMilliseconds(100)))
+                    {
+                        return task.Result;
+                    }
+                    return task.Result;
+                }
+                catch (AggregateException aex)
+                {
+                    var innerEx = aex.InnerException ?? aex;
+                    return $"Error: {innerEx.Message}";
                 }
                 catch (Exception ex)
                 {
@@ -150,7 +213,17 @@ namespace LocalAI.Excel.AddIn
             {
                 try
                 {
-                    return GenerateAIResponse(prompt, modelName, 0.4).GetAwaiter().GetResult();
+                    var task = GenerateAIResponse(prompt, modelName, 0.4);
+                    if (task.Wait(TimeSpan.FromMilliseconds(100)))
+                    {
+                        return task.Result;
+                    }
+                    return task.Result;
+                }
+                catch (AggregateException aex)
+                {
+                    var innerEx = aex.InnerException ?? aex;
+                    return $"Error: {innerEx.Message}";
                 }
                 catch (Exception ex)
                 {
@@ -186,7 +259,17 @@ namespace LocalAI.Excel.AddIn
             {
                 try
                 {
-                    return GenerateAIResponse(prompt, modelName, 0.2).GetAwaiter().GetResult();
+                    var task = GenerateAIResponse(prompt, modelName, 0.2);
+                    if (task.Wait(TimeSpan.FromMilliseconds(100)))
+                    {
+                        return task.Result;
+                    }
+                    return task.Result;
+                }
+                catch (AggregateException aex)
+                {
+                    var innerEx = aex.InnerException ?? aex;
+                    return $"Error: {innerEx.Message}";
                 }
                 catch (Exception ex)
                 {
@@ -219,7 +302,17 @@ namespace LocalAI.Excel.AddIn
             {
                 try
                 {
-                    return GenerateAIResponse(prompt, modelName, 0.3).GetAwaiter().GetResult();
+                    var task = GenerateAIResponse(prompt, modelName, 0.3);
+                    if (task.Wait(TimeSpan.FromMilliseconds(100)))
+                    {
+                        return task.Result;
+                    }
+                    return task.Result;
+                }
+                catch (AggregateException aex)
+                {
+                    var innerEx = aex.InnerException ?? aex;
+                    return $"Error: {innerEx.Message}";
                 }
                 catch (Exception ex)
                 {
