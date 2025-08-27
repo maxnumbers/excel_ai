@@ -19,11 +19,8 @@ jobs:
       - name: Restore
         run: dotnet restore LocalAI.Excel.AddIn/LocalAI.Excel.AddIn.csproj
 
-      - name: Build Release
+      - name: Build and Pack XLL files
         run: dotnet build LocalAI.Excel.AddIn/LocalAI.Excel.AddIn.csproj -c Release
-
-      - name: Pack XLL files
-        run: dotnet build LocalAI.Excel.AddIn/LocalAI.Excel.AddIn.csproj -c Release -p:ExcelDnaPack=true
 
       - name: List generated files (debug)
         run: |
@@ -37,7 +34,9 @@ jobs:
         with:
           name: xll-artifacts
           path: |
+            LocalAI.Excel.AddIn/bin/Release/*-packed.xll
             LocalAI.Excel.AddIn/bin/Release/*.xll
             LocalAI.Excel.AddIn/bin/Release/*.dll
             LocalAI.Excel.AddIn/bin/Release/*.dna
+            LocalAI.Excel.AddIn/bin/Release/*.config
           if-no-files-found: warn

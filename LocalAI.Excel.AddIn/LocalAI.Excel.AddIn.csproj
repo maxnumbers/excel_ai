@@ -7,6 +7,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>latest</LangVersion>
+    <ExcelDnaCreate32BitAddIn>true</ExcelDnaCreate32BitAddIn>
+    <ExcelDnaCreate64BitAddIn>true</ExcelDnaCreate64BitAddIn>
+    <ExcelDnaPack>true</ExcelDnaPack>
   </PropertyGroup>
 
   <ItemGroup>
